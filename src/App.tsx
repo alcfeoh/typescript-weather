@@ -15,7 +15,7 @@ function App() {
           addZipcode(value);
           getCurrentConditions(value).then(data => {
               let newConditions = [...weatherConditions, data];
-              setWeatherConditions(weatherConditions);
+              setWeatherConditions(newConditions);
           })
       }
   }
@@ -25,10 +25,12 @@ function App() {
       <input type="text" placeholder="Enter a zipcode" ref={input} />
       <button onClick={addLocation}>Add location</button>
         <h3>
-            Current zipcodes:
+            Current conditions:
         </h3>
         <div>
-            {JSON.stringify(getZipcodes())}
+            {weatherConditions.map(data =>
+                <div>City: {data.name} - Weather: {data.weather[0].main}</div>
+            )}
         </div>
     </div>
   );
