@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {createRef} from 'react';
 import './App.css';
+import {addZipcode, getZipcodes} from './zipcodeUtility';
 
 function App() {
+
+
+  let input = createRef<HTMLInputElement>();
+
+  const addLocation = () => {
+      const value = input.current?.value;
+      if (value)
+        addZipcode(value);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input type="text" placeholder="Enter a zipcode" ref={input} />
+      <button onClick={addLocation}>Add location</button>
+        <h3>
+            Current zipcodes:
+        </h3>
+        <div>
+            {JSON.stringify(getZipcodes())}
+        </div>
     </div>
   );
 }
